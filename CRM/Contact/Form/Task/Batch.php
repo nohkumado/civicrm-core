@@ -282,7 +282,7 @@ class CRM_Contact_Form_Task_Batch extends CRM_Contact_Form_Task {
         $locTypeId = substr($key, strlen($addressFldKey) + 1);
 
         // parse address field.
-        $parsedFields = CRM_Core_BAO_Address::parseStreetAddress($value);
+        $parsedFields = CRM_Core_BAO_Address::parseStreetAddress($value);//TODO adress parsing
 
         //street address consider to be parsed properly,
         //If we get street_name and street_number.

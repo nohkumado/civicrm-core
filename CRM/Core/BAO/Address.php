@@ -264,7 +264,7 @@ class CRM_Core_BAO_Address extends CRM_Core_DAO_Address implements Civi\Core\Hoo
       }
       // main parse string.
       $parseString = $params['street_address'] ?? NULL;
-      $parsedFields = CRM_Core_BAO_Address::parseStreetAddress($parseString);
+      $parsedFields = CRM_Core_BAO_Address::parseStreetAddress($parseString);//TODO adress parsing use a parser instread: $parser = AddressParserFactory::createParser("fr_FR"); $result = $parser->parseStreetAddress($sample["src"]);
 
       // merge parse address in to main address block.
       $params = array_merge($params, $parsedFields);
