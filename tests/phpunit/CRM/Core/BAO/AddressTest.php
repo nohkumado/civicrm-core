@@ -517,6 +517,635 @@ class CRM_Core_BAO_AddressTest extends CiviUnitTestCase {
     $this->assertEquals($parsedStreetAddress['street_number'], '123');
     $this->assertNotContains('street_unit', $parsedStreetAddress);
     $this->assertNotContains('street_number_suffix', $parsedStreetAddress);
+
+    $listing = array(
+        array(
+          "src" => "18 Bld Jean-Sébastien BACH",
+          "expected" => array(
+            'street_name' => 'jean-sébastien bach',
+            'street_unit' => 'bd',
+            'street_number' => '18',
+            'street_number_suffix' => '',
+            )
+              ),
+         array(
+             "src" => "13 av. A. Briand",
+             "expected" => array(
+               'street_name' => 'a. briand',
+               'street_unit' => 'av',
+               'street_number' => '13',
+               'street_number_suffix' => '',
+               )
+                 ),
+         array(
+         "src" => "17, boulevard de la Victoire",
+         "expected" => array(
+           'street_name' => 'de la victoire',
+           'street_unit' => 'bd',
+           'street_number' => '17',
+           'street_number_suffix' => '',
+           )
+             ),
+         array(
+             "src" => "8 Avenue de l'Europe",
+             "expected" => array(
+               'street_name' => "de l'europe",
+               'street_unit' => 'av',
+               'street_number' => '8',
+               'street_number_suffix' => '',
+               )
+                 ),
+         array(
+             "src" => "17B rue du Soleil",
+             "expected" => array(
+               'street_name' => 'du soleil',
+               'street_unit' => 'rue',
+               'street_number' => '17',
+               'street_number_suffix' => 'b',
+               )
+                 ),
+         array(
+             "src" => "1 a rue de Wangenbourg",
+             "expected" => array(
+               'street_name' => 'de wangenbourg',
+               'street_unit' => 'rue',
+               'street_number' => '1',
+               'street_number_suffix' => 'a',
+               )
+                 ),
+         array(
+                 "src" => "2 Av. du Gal De Gaulle",
+                 "expected" => array(
+                   'street_name' => 'du gal de gaulle',
+                   'street_unit' => 'av',
+                   'street_number' => '2',
+                   'street_number_suffix' => '',
+                   )
+                     ),
+         array(
+             "src" => "2, rue Saint-Pierre-le-Jeune",
+             "expected" => array(
+               'street_name' => 'saint-pierre-le-jeune',
+               'street_unit' => 'rue',
+               'street_number' => '2',
+               'street_number_suffix' => '',
+               )
+                 ),
+         array(
+             "src" => "14a rue de la Couronne",
+             "expected" => array(
+               'street_name' => 'de la couronne',
+               'street_unit' => 'rue',
+               'street_number' => '14',
+               'street_number_suffix' => 'a',
+               )
+                 ),
+         array(
+             "src" => "12, rue du docteur Maurice Freysz",
+             "expected" => array(
+               'street_name' => 'du docteur maurice freysz',
+               'street_unit' => 'rue',
+               'street_number' => '12',
+               'street_number_suffix' => '',
+               )
+                 ),
+         array(
+             "src" => "103 Grand'Rue",
+             "expected" => array(
+               'street_name' => 'grand\'rue',
+               'street_unit' => '',
+               'street_number' => '103',
+               'street_number_suffix' => '',
+               )
+                 ),
+         array(
+             "src" => "2 rue Jacques et René Knecht",
+             "expected" => array(
+               'street_name' => 'jacques et rené knecht',
+               'street_unit' => 'rue',
+               'street_number' => '2',
+               'street_number_suffix' => '',
+               )
+                 ),
+         array(
+             "src" => "2 rue Jacques et René Knecht",
+             "expected" => array(
+               'street_name' => 'jacques et rené knecht',
+               'street_unit' => 'rue',
+               'street_number' => '2',
+               'street_number_suffix' => '',
+               )
+                 ),
+         array(
+             "src" => "69b route de Lyon",
+             "expected" => array(
+               'street_name' => 'de lyon',
+               'street_unit' => 'rte',
+               'street_number' => '69',
+               'street_number_suffix' => 'b',
+               )
+                 ),
+         array(
+             "src" => "36 Jardins de la Moder",
+             "expected" => array(
+               'street_name' => 'de la moder',
+               'street_unit' => 'jard',
+               'street_number' => '36',
+               'street_number_suffix' => '',
+               )
+                 ),
+         array(
+             "src" => "20 A rue rue de Lièpvre",
+             "expected" => array(
+               'street_name' => 'de lièpvre',
+               'street_unit' => 'rue',
+               'street_number' => '20',
+               'street_number_suffix' => 'a',
+               )
+                 ),
+         array(
+             "src" => "7A rue de L'Ermitage",
+             "expected" => array(
+               'street_name' => "de l'ermitage",
+               'street_unit' => 'rue',
+               'street_number' => '7',
+               'street_number_suffix' => 'a',
+               )
+                 ),
+         array(
+             "src" => "29, rue Chauveau Lagarde",
+             "expected" => array(
+               'street_name' => 'chauveau lagarde',
+               'street_unit' => 'rue',
+               'street_number' => '29',
+               'street_number_suffix' => '',
+               )
+                 ),
+         array(
+             "src" => "18,rue du Landsberg",
+             "expected" => array(
+               'street_name' => 'du landsberg',
+               'street_unit' => 'rue',
+               'street_number' => '18',
+               'street_number_suffix' => '',
+               )
+                 ),
+             array(
+                 "src" => "7 rue de la Saure (chambre 313)",
+                 "fail" => true,
+                 "expected" => array(
+                   'street_name' => 'de la saure',
+                   'street_unit' => 'rue',
+                   'street_number' => '7',
+                   'street_number_suffix' => '',
+                   )
+                     ),
+             array(
+                 "src" => "41 j, avenue du Petit Senn",
+                 "expected" => array(
+                   'street_name' => 'du petit senn',
+                   'street_unit' => 'av',
+                   'street_number' => '41',
+                   'street_number_suffix' => 'j',
+                   )
+                     ),
+             array(
+                 "src" => "30 rue des Mouins Maison de retraite Niederbourg",
+                 "expected" => array(
+                   'street_name' => 'des mouins maison de retraite niederbourg',
+                   'street_unit' => 'rue',
+                   'street_number' => '30',
+                   'street_number_suffix' => '',
+                   )
+                     ),
+             array(
+                 "src" => "164, rue Roger Salengro",
+                 "expected" => array(
+                   'street_name' => 'roger salengro',
+                   'street_unit' => 'rue',
+                   'street_number' => '164',
+                   'street_number_suffix' => '',
+                   )
+                     ),
+                 array(
+                     "src" => "23 A rue du Député Hallez",
+                     "expected" => array(
+                       'street_name' => 'du député hallez',
+                       'street_unit' => 'rue',
+                       'street_number' => '23',
+                       'street_number_suffix' => 'a',
+                       )
+                         ),
+                 array(
+                     "src" => "2 cour du bain des juifs",
+                     "expected" => array(
+                       'street_name' => 'du bain des juifs',
+                       'street_unit' => 'cr',
+                       'street_number' => '2',
+                       'street_number_suffix' => '',
+                       )
+                         ),
+                 array(
+                     "src" => "78 BD Clemenceau",
+                     "expected" => array(
+                       'street_name' => 'clemenceau',
+                       'street_unit' => 'bd',
+                       'street_number' => '78',
+                       'street_number_suffix' => '',
+                       )
+                         ),
+                 array(
+                     "src" => "10 ROUTE DE SAVERNE",
+                     "expected" => array(
+                       'street_name' => 'de saverne',
+                       'street_unit' => 'rte',
+                       'street_number' => '10',
+                       'street_number_suffix' => '',
+                       )
+                         ),
+                     array(
+                         "src" => "17 av des Consulats",
+                         "expected" => array(
+                           'street_name' => 'des consulats',
+                           'street_unit' => 'av',
+                           'street_number' => '17',
+                           'street_number_suffix' => '',
+                           )
+                             ),
+                         array(
+                             "src" => "59 Bd de l'Europe",
+                             "expected" => array(
+                               'street_name' => 'de l\'europe',
+                               'street_unit' => 'bd',
+                               'street_number' => '59',
+                               'street_number_suffix' => '',
+                               )
+                                 ),
+                             array(
+                                 "src" => "26 av. Schutzenberger",
+                                 "expected" => array(
+                                   'street_name' => 'schutzenberger',
+                                   'street_unit' => 'av',
+                                   'street_number' => '26',
+                                   'street_number_suffix' => '',
+                                   )
+                                     ),
+                                 array(
+                                     "src" => "66b rue du Château",
+                                     "expected" => array(
+                                       'street_name' => 'du château',
+                                       'street_unit' => 'rue',
+                                       'street_number' => '66',
+                                       'street_number_suffix' => 'b',
+                                       )
+                                         ),
+                                     array(
+                                         "src" => "38 route de St Léonard",
+                                         "expected" => array(
+                                           'street_name' => 'de st léonard',
+                                           'street_unit' => 'rte',
+                                           'street_number' => '38',
+                                           'street_number_suffix' => '',
+                                           )
+                                             ),
+                                         array(
+                                             "src" => "rue de l'etang",
+                                             "expected" => array(
+                                               'street_name' => "de l'etang",
+                                               'street_unit' => 'rue',
+                                               'street_number' => '',
+                                               'street_number_suffix' => '',
+                                               )
+                                                 ),
+                                             array(
+                                                 "src" => "275c rue de l'Eglise",
+                                                 "expected" => array(
+                                                   'street_name' => "de l'eglise",
+                                                   'street_unit' => 'rue',
+                                                   'street_number' => '275',
+                                                   'street_number_suffix' => 'c',
+                                                   )
+                                                     ),
+                                                 array(
+                                                     "src" => "322e rue des Jardins",
+                                                     "expected" => array(
+                                                       'street_name' => 'des jardins',
+                                                       'street_unit' => 'rue',
+                                                       'street_number' => '322',
+                                                       'street_number_suffix' => 'e',
+                                                       )
+                                                         ),
+                                                     array(
+                                                         "src" => "43 chemin du Rosenmeer",
+                                                         "expected" => array(
+                                                           'street_name' => 'du rosenmeer',
+                                                           'street_unit' => 'chem',
+                                                           'street_number' => '43',
+                                                           'street_number_suffix' => '',
+                                                           )
+                                                             ),
+                                                         array(
+                                                             "src" => "10 Haute Corniche",
+                                                             "expected" => array(
+                                                               'street_name' => 'haute corniche',
+                                                               'street_unit' => '',
+                                                               'street_number' => '10',
+                                                               'street_number_suffix' => '',
+                                                               )
+                                                                 ),
+                                                             array(
+                                                                 "src" => "Berges de l'Ehn",
+                                                                 "expected" => array(
+                                                                   'street_name' => 'de l\'ehn',
+                                                                   'street_unit' => 'berges',
+                                                                   'street_number' => '',
+                                                                   'street_number_suffix' => '',
+                                                                   )
+                                                                     ),
+                                                                 array(
+                                                                     "src" => "Résidence \"Les Aubépines\"",
+                                                                     "expected" => array(
+                                                                       'street_name' => 'résidence "les aubépines"',
+                                                                       'street_unit' => '',
+                                                                       'street_number' => '',
+                                                                       'street_number_suffix' => '',
+                                                                       )
+                                                                         ),
+                                                                     array(
+                                                                         "src" => "17 place de l'Etoile",
+                                                                         "expected" => array(
+                                                                           'street_name' => 'de l\'etoile',
+                                                                           'street_unit' => 'pl',
+                                                                           'street_number' => '17',
+                                                                           'street_number_suffix' => '',
+                                                                           )
+                                                                             ),
+                                                                         array(
+                                                                             "src" => "23 lotissement St Jean",
+                                                                             "expected" => array(
+                                                                               'street_name' => 'st jean',
+                                                                               'street_unit' => 'lot',
+                                                                               'street_number' => '23',
+                                                                               'street_number_suffix' => '',
+                                                                               )
+                                                                                 ),
+                                                                             array(
+                                                                                 "src" => "3 Cours Charles Spindler route d'altenheim",
+                                                                                 "expected" => array(
+                                                                                   'street_name' => 'charles spindler route d\'altenheim',
+                                                                                   'street_unit' => 'crs',
+                                                                                   'street_number' => '3',
+                                                                                   'street_number_suffix' => '',
+                                                                                   )
+                                                                                     ),
+                                                                                 array(
+                                                                                     "src" => "Résidence \"Solarium\"",
+                                                                                     "expected" => array(
+                                                                                       'street_name' => 'résidence "solarium"',
+                                                                                       'street_unit' => '',
+                                                                                       'street_number' => '',
+                                                                                       'street_number_suffix' => '',
+                                                                                       )
+                                                                                         ),
+                                                                                     array(
+                                                                                         "src" => "11 av de Gail",
+                                                                                         "expected" => array(
+                                                                                           'street_name' => 'de gail',
+                                                                                           'street_unit' => 'av',
+                                                                                           'street_number' => '11',
+                                                                                           'street_number_suffix' => '',
+                                                                                           )
+                                                                                             ),
+                                                                                         array(
+                                                                                             "src" => "510 rue du Tramway",
+                                                                                             "expected" => array(
+                                                                                               'street_name' => 'du tramway',
+                                                                                               'street_unit' => 'rue',
+                                                                                               'street_number' => '510',
+                                                                                               'street_number_suffix' => '',
+                                                                                               )
+                                                                                                 ),
+                     array(
+                         "src" => "Presbytère catholique lieu dit foegel",
+                         "expected" => array(
+                           'street_name' => 'presbytère catholique lieu dit foegel',
+                           'street_unit' => '',
+                           'street_number' => '',
+                           'street_number_suffix' => '',
+                           )
+                             ),
+                         array(
+                             "src" => "5 Belle Vue cour du chapitre",
+                             "expected" => array(
+                               'street_name' => 'belle vue cour du chapitre',
+                               'street_unit' => '',
+                               'street_number' => '5',
+                               'street_number_suffix' => '',
+                               )
+                                 ),
+                             array(
+                                 "src" => "44E Rue du Maréchal Koenig",
+                                 "expected" => array(
+                                   'street_name' => 'du maréchal koenig',
+                                   'street_unit' => 'rue',
+                                   'street_number' => '44',
+                                   'street_number_suffix' => 'e',
+                                   )
+                                     ),
+                                 array(
+                                     "src" => "Villa Lumière",
+                                     "expected" => array(
+                                       'street_name' => 'lumière',
+                                       'street_unit' => 'vla',
+                                       'street_number' => '',
+                                       'street_number_suffix' => '',
+                                       )
+                                         ),
+                                     array(
+                                         "src" => "11 allée Hohle-Felsen",
+                                         "expected" => array(
+                                           'street_name' => 'hohle-felsen',
+                                           'street_unit' => 'all',
+                                           'street_number' => '11',
+                                           'street_number_suffix' => '',
+                                           )
+                                             ),
+                                         array(
+                                             "src" => "44.2 Bd de l'Europe",
+                                             "expected" => array(
+                                               'street_name' => "de l'europe",
+                                               'street_unit' => 'bd',
+                                               'street_number' => '44.2',
+                                               'street_number_suffix' => '',
+                                               )
+                                                 ),
+                                             array(
+                                                 "src" => "100 Les Hauts de Klingenthal",
+                                                 "expected" => array(
+                                                   'street_name' => 'les hauts de klingenthal',
+                                                   'street_unit' => '',
+                                                   'street_number' => '100',
+                                                   'street_number_suffix' => '',
+                                                   )
+                                                     ),
+                                                 array(
+                                                     "src" => "Foyer Résidence Hohenbourg",
+                                                     "expected" => array(
+                                                       'street_name' => 'foyer résidence hohenbourg',
+                                                       'street_unit' => '',
+                                                       'street_number' => '',
+                                                       'street_number_suffix' => '',
+                                                       )
+                                                         ),
+                                                     array(
+                                                         "src" => "via Mme DOPPLER",
+                                                         "expected" => array(
+                                                           'street_name' => 'mme doppler',
+                                                           'street_unit' => 'via',
+                                                           'street_number' => '',
+                                                           'street_number_suffix' => '',
+                                                           )
+                                                             ),
+                                                         array(
+                                                             "src" => "8 Rempart Joffre",
+                                                             "expected" => array(
+                                                               'street_name' => 'rempart joffre',
+                                                               'street_unit' => '',
+                                                               'street_number' => '8',
+                                                               'street_number_suffix' => '',
+                                                               )
+                                                                 ),
+                                                             array(
+                                                                 "src" => "Moyenne Corniche",
+                                                                 "expected" => array(
+                                                                   'street_name' => 'moyenne corniche',
+                                                                   'street_unit' => '',
+                                                                   'street_number' => '',
+                                                                   'street_number_suffix' => '',
+                                                                   )
+                                                                     ),
+                                                                 array(
+                                                                     "src" => "111a rue de Valff",
+                                                                     "expected" => array(
+                                                                       'street_name' => 'de valff',
+                                                                       'street_unit' => 'rue',
+                                                                       'street_number' => '111',
+                                                                       'street_number_suffix' => 'a',
+                                                                       )
+                                                                         ),
+                                                                     array(
+                                                                         "src" => "21 av des Consulats - Bât A impasse de l'ehn",
+                                                                         "expected" => array(
+                                                                           'street_name' => 'des consulats - bât a impasse de l\'ehn',
+                                                                           'street_unit' => 'av',
+                                                                           'street_number' => '21',
+                                                                           'street_number_suffix' => '',
+                                                                           )
+                                                                             ),
+                                                                         array(
+                                                                             "src" => "6 place Saint Louis fondation goethe",
+                                                                             "expected" => array(
+                                                                               'street_name' => 'saint louis fondation goethe',
+                                                                               'street_unit' => 'pl',
+                                                                               'street_number' => '6',
+                                                                               'street_number_suffix' => '',
+                                                                               )
+                                                                                 ),
+                                                                             array(
+                                                                                 "src" => "Chez M. Alain MASTRONARDI",
+                                                                                 "expected" => array(
+                                                                                   'street_name' => 'chez m. alain mastronardi',
+                                                                                   'street_unit' => '',
+                                                                                   'street_number' => '',
+                                                                                   'street_number_suffix' => '',
+                                                                                   )
+                                                                                     ),
+                                                                                 array(
+                                                                                     "src" => "19b route de Laubenheim",
+                                                                                     "expected" => array(
+                                                                                       'street_name' => 'de laubenheim',
+                                                                                       'street_unit' => 'rte',
+                                                                                       'street_number' => '19',
+                                                                                       'street_number_suffix' => 'b',
+                                                                                       )
+                                                                                         ),
+                                                                                     array(
+                                                                                         "src" => "8 rue de la Poste",
+                                                                                         "expected" => array(
+                                                                                           'street_name' => 'de la poste',
+                                                                                           'street_unit' => 'rue',
+                                                                                           'street_number' => '8',
+                                                                                           'street_number_suffix' => '',
+                                                                                           )
+                                                                                             ),
+                                                                                         array(
+                                                                                             "src" => "1ter rue de l'Eglise",
+                                                                                             "expected" => array(
+                                                                                               'street_name' => "de l'eglise",
+                                                                                               'street_unit' => 'rue',
+                                                                                               'street_number' => '1',
+                                                                                               'street_number_suffix' => 'ter',
+                                                                                               )
+                                                                                                 ),
+                                                                                             array(
+                                                                                                 "src" => "1a quai Saint Thomas",
+                                                                                                 "expected" => array(
+                                                                                                   'street_name' => 'saint thomas',
+                                                                                                   'street_unit' => 'quai',
+                                                                                                   'street_number' => '1',
+                                                                                                   'street_number_suffix' => 'a',
+                                                                                                   )
+                                                                                                     ),
+                                                                                                 array(
+                                                                                                     "src" => "1bis rue de la Gare",
+                                                                                                     "expected" => array(
+                                                                                                       'street_name' => 'de la gare',
+                                                                                                       'street_unit' => 'rue',
+                                                                                                       'street_number' => '1',
+                                                                                                       'street_number_suffix' => 'bis',
+                                                                                                       )
+                                                                                                         ),
+                                                                                                     array(
+                                                                                                         "src" => "4 rue du Bouclier",
+                                                                                                         "expected" => array(
+                                                                                                           'street_name' => 'du bouclier',
+                                                                                                           'street_unit' => 'rue',
+                                                                                                           'street_number' => '4',
+                                                                                                           'street_number_suffix' => '',
+                                                                                                           )
+                                                                                                             )
+                         );
+
+
+
+    $locale = 'fr_FR';
+
+    $line = 0;
+    foreach( $listing as $sample )
+    {
+      $result = CRM_Core_BAO_Address::parseAddress($sample["src"], "fr_FR");
+      //$result = CRM_Core_BAO_Address::parseFrenchAddress($sample["src"], "fr_FR");
+      $expect = $sample["expected"];
+      $fail = (array_key_exists("fail",$sample))?($sample["fail"])?true:false:false;
+
+
+      if($fail)
+      {
+        $this->assertNotEquals($expect['street_name'], $result['street_name'], "Failed[$line]: Street name mismatch:'".$result['street_name']."' vs '".$expect['street_name']."'\n");
+        //$this->assertNotEquals($expect['street_unit'], $result['street_unit'], "Failed[$line]: Street unit mismatch:'".$result['street_unit']."' vs '".$expect['street_unit']."'\n");
+        //$this->assertNotEquals($expect['street_number'], $result['street_number'], "Failed[$line]: Street number mismatch:'".$result['street_number']."' vs '".$expect['street_number']."'\n");
+        //$this->assertNotEquals($expect['street_number_suffix'], $result['street_number_suffix'], "Failed[$line]: Street number suffix mismatch:'".$result['street_number_suffix']." vs '".$expect['street_number_suffix']."<br>\n");
+      }
+      else
+      {
+        $this->assertEquals($expect['street_name'], $result['street_name'], "Failed[$line]: Street name mismatch:'".$result['street_name']."' vs '".$expect['street_name']."'<br>\n");
+        $this->assertEquals($expect['street_unit'], $result['street_unit'], "Failed[$line]: Street unit mismatch:'".$result['street_unit']." vs '".$expect['street_unit']."<br>\n");
+        $this->assertEquals($expect['street_number'], $result['street_number'], "Failed[$line]: Street number mismatch:'".$result['street_number']."' vs '".$expect['street_number']."'<br>\n");
+        $this->assertEquals($expect['street_number_suffix'], $result['street_number_suffix'], "Failed[$line]: Street number suffix mismatch:'".$result['street_number_suffix']." vs '".$expect['street_number_suffix']."<br>\n");
+      }
+
+      $line ++;
+    }
   }
 
   /**
@@ -599,7 +1228,7 @@ class CRM_Core_BAO_AddressTest extends CiviUnitTestCase {
       'is_primary' => '1',
       'master_id' => $addAddressA->id,
       'contact_id' => $contactIdB,
-    ];
+      ];
     $addAddressB = CRM_Core_BAO_Address::writeRecord($addressParamsB);
 
     $addressParamsC = [
@@ -608,7 +1237,7 @@ class CRM_Core_BAO_AddressTest extends CiviUnitTestCase {
       'is_primary' => '1',
       'master_id' => $addAddressB->id,
       'contact_id' => $contactIdC,
-    ];
+      ];
     $addAddressC = CRM_Core_BAO_Address::writeRecord($addressParamsC);
 
     $updatedAddressParamsA = [
@@ -617,7 +1246,7 @@ class CRM_Core_BAO_AddressTest extends CiviUnitTestCase {
       'location_type_id' => '1',
       'is_primary' => '1',
       'contact_id' => $contactIdA,
-    ];
+      ];
     $updatedAddressA = CRM_Core_BAO_Address::writeRecord($updatedAddressParamsA);
 
     // CRM-21214 - Has Address C been updated with Address A's new values?
@@ -667,7 +1296,7 @@ class CRM_Core_BAO_AddressTest extends CiviUnitTestCase {
       'is_primary' => '1',
       'master_id' => $addAddressA->id,
       'contact_id' => $contactIdC,
-    ];
+      ];
     $addAddressC = CRM_Core_BAO_Address::writeRecord($addressParamsC);
 
     $updatedAddressParamsA = [
@@ -677,7 +1306,7 @@ class CRM_Core_BAO_AddressTest extends CiviUnitTestCase {
       'is_primary' => '1',
       'master_id' => $addAddressB->id,
       'contact_id' => $contactIdA,
-    ];
+      ];
     $updatedAddressA = CRM_Core_BAO_Address::writeRecord($updatedAddressParamsA);
 
     $updatedAddressParamsB = [
@@ -686,7 +1315,7 @@ class CRM_Core_BAO_AddressTest extends CiviUnitTestCase {
       'location_type_id' => '1',
       'is_primary' => '1',
       'contact_id' => $contactIdB,
-    ];
+      ];
     $updatedAddressB = CRM_Core_BAO_Address::writeRecord($updatedAddressParamsB);
 
     // CRM-21214 - Has Address C been updated with Address B's new values?
@@ -724,7 +1353,7 @@ class CRM_Core_BAO_AddressTest extends CiviUnitTestCase {
       'is_primary' => '1',
       'master_id' => $addAddressA->id,
       'contact_id' => $contactIdA,
-    ];
+      ];
     $updatedAddressA = CRM_Core_BAO_Address::writeRecord($updatedAddressParamsA);
 
     // CRM-21214 - AdressA shouldn't be master of itself.
@@ -751,7 +1380,7 @@ class CRM_Core_BAO_AddressTest extends CiviUnitTestCase {
       'is_primary' => '1',
       'contact_id' => $contactIdA,
       $customField => 'this is a custom text field',
-    ];
+      ];
     $addressParamsA['custom'] = CRM_Core_BAO_CustomField::postProcess($addressParamsA, NULL, 'Address');
 
     $addAddressA = CRM_Core_BAO_Address::writeRecord($addressParamsA);
@@ -763,7 +1392,7 @@ class CRM_Core_BAO_AddressTest extends CiviUnitTestCase {
       'is_primary' => '1',
       'master_id' => $addAddressA->id,
       'contact_id' => $contactIdB,
-    ];
+      ];
     $addAddressB = CRM_Core_BAO_Address::writeRecord($addressParamsB);
 
     // 1. check if the custom fields values have been copied from master to shared address
@@ -852,14 +1481,14 @@ class CRM_Core_BAO_AddressTest extends CiviUnitTestCase {
       'is_primary' => '1',
       'is_billing' => '0',
       'contact_id' => $contactId,
-    ];
+      ];
 
     CRM_Core_BAO_Address::fixAddress($fixParams);
     $addAddress = CRM_Core_BAO_Address::writeRecord($fixParams);
 
     $addParams = $this->assertDBNotNull('CRM_Core_DAO_Address', $contactId, 'id', 'contact_id',
-      'Database check for created contact address.'
-    );
+        'Database check for created contact address.'
+        );
 
     $this->assertEquals('41.70130897956', $addAddress->geo_code_1, 'In line' . __LINE__);
     $this->assertEquals('-73.9194186863', $addAddress->geo_code_2, 'In line' . __LINE__);

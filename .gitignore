@@ -82,3 +82,4 @@ distmaker/distmaker.conf
 distmaker/out
 /srv
 /tmp
+tags
